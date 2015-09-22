@@ -16,6 +16,7 @@ function drawBorder(color){
 function Game (){
       var interval = function() {
           drawBorder('orange')
+          drawSnake();
           setTimeout(function() {
             requestAnimationFrame(interval);
           }, 1000);
@@ -25,14 +26,14 @@ function Game (){
 
 
 /// Step 4: Draw a Snake
-///
-
 function drawSnake (){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
   var pixelSize = canvas.width / 25
-            for(var i = 0; i < 8; i++) {
-                  context.fillStyle = 'red';
-                  context.fillRect(i, 0, pixelSize, pixelSize);
-                }
+      for(var i = 0; i < 8; i++) {
+          context.fillStyle = "orange";
+          context.fillRect(i*pixelSize, 0, pixelSize, pixelSize);
+          context.strokeStyle = "white";
+          context.strokeRect(i*pixelSize, 0, pixelSize, pixelSize);
+        }
 }
