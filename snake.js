@@ -2,13 +2,15 @@
 /// only call our draw function when the canvas is loaded and has context!
 document.addEventListener("DOMContentLoaded", function() {
   game = new  Game()
-  });
+});
 
 //// Step 1: Drawing a Border
-function drawBorder(color){
+function drawBorder(color, score){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.font = "30px Arial";
+    context.fillText(score, 0, 30)
     context.strokeStyle = color
     context.strokeRect(0,0, canvas.width, canvas.height);
 }
@@ -18,8 +20,10 @@ var  Game = function (){
   var self = this
       self.snake = new Snake()
       self.food = createFood()
+      self.score = 0;
+
       var interval = function() {
-          drawBorder('orange');
+          drawBorder('orange', self.score);
           updateSnake(self.snake);
           drawSnake(self.snake);
           drawFood(self.food);
@@ -50,7 +54,7 @@ var Snake = function(){
     self.direction = 'right'
     self.snakeArray = []
     self.length = 8
-      for(var i = 8; i>=0; i--) {
+      for(var i = self.length; i>=0; i--) {
         self.snakeArray.push({x: i, y:0});
       }
 
@@ -112,10 +116,14 @@ function checkCollision(snake, food){
     /// if we hit our food!
     if(snake.snakeArray[0].x === food.x && snake.snakeArray[0].y === food.y){
         game.food = createFood()
-    }
+        game.score++
+        var tail = {}
+        tail.x = game.snake.snakeArray[0].x
+        tail.y = game.snake.snakeArray[0].y
+        snake.snakeArray.unshift(tail);
+      }
     /// off the map left
     if(snake.snakeArray[0].x < 0 ){
-
     }
     /// off the map up
     if(snake.snakeArray[0].y < 0 ){
