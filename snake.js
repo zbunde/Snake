@@ -130,9 +130,9 @@ function checkCollision(snake, food){
 
     }
     /// if we hit our own snake body
-    for(var i = 0; i < snake.snakeArray.length; i++){
-      if(snake.snakeArray[i].x == snake.snakeArray[0].x && snake.snakeArray[i].y == snake.snakeArray[i].y){
-        
+    for(var i = 1; i < snake.snakeArray.length; i++){
+      if(snake.snakeArray[i].x == snake.snakeArray[0].x && snake.snakeArray[i].y == snake.snakeArray[0].y){
+
       }
 
     }
