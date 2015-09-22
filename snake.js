@@ -9,7 +9,6 @@ function drawBorder(color){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
     context.strokeStyle = color
-    context.lineWidth=10;
     context.strokeRect(0,0, canvas.width, canvas.height);
 }
 
@@ -22,4 +21,18 @@ function Game (){
           }, 1000);
     };
     interval();
+}
+
+
+/// Step 4: Draw a Snake
+///
+
+function drawSnake (){
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext('2d');
+  var pixelSize = canvas.width / 25
+            for(var i = 0; i < 8; i++) {
+                  context.fillStyle = 'red';
+                  context.fillRect(i, 0, pixelSize, pixelSize);
+                }
 }
