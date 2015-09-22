@@ -9,7 +9,6 @@ function drawBorder(color){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d');
     context.strokeStyle = color
-    context.lineWidth=10;
     context.strokeRect(0,0, canvas.width, canvas.height);
 }
 
