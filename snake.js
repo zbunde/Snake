@@ -67,3 +67,16 @@ function updateSnake(snake){
             tail.y = noseY;
             snake.snakeArray.unshift(tail);
 }
+
+/// Step 6 Control
+window.addEventListener('keydown', function(key) {
+       key.preventDefault();
+          if(key.which == "37")
+            game.snake.direction = "left"
+          else if(key.which == "39")
+            game.snake.direction = "right"
+          else if(key.which == "38")
+            game.snake.direction = "up"
+          else if(key.which == "40")
+            game.snake.direction = "down"
+});
