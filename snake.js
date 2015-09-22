@@ -17,10 +17,12 @@ function drawBorder(color){
 var  Game = function (){
   var self = this
       self.snake = new Snake()
+      self.food = createFood()
       var interval = function() {
           drawBorder('orange')
           updateSnake(self.snake)
           drawSnake(self.snake);
+          drawFood(self.food)
           setTimeout(function() {
             requestAnimationFrame(interval);
           }, 120);
@@ -57,6 +59,7 @@ var Snake = function(){
 function updateSnake(snake){
       var noseX= snake.snakeArray[0].x
       var noseY= snake.snakeArray[0].y
+
           if(snake.direction == "right") noseX++;
         	else if(snake.direction == "left") noseX--;
         	else if(snake.direction == "up") noseY--;
@@ -80,3 +83,22 @@ window.addEventListener('keydown', function(key) {
           else if(key.which == "40")
             game.snake.direction = "down"
 });
+
+/// Step 7 food
+function createFood(){
+  var pixelSize = canvas.width / 25
+    return  food = {
+        x: Math.round(Math.random()*(canvas.width-pixelSize)/pixelSize),
+        y: Math.round(Math.random()*(canvas.height-pixelSize)/pixelSize),
+      };
+}
+/// Step 7 food
+function drawFood(food){
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext('2d')
+  var pixelSize = canvas.width / 25
+    context.fillStyle = "blue";
+    context.fillRect(food.x * pixelSize, food.y * pixelSize, pixelSize, pixelSize);
+    context.strokeStyle = "white";
+    context.strokeRect(food.x * pixelSize, food.y * pixelSize, pixelSize, pixelSize);
+}
