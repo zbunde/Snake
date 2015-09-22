@@ -19,10 +19,11 @@ var  Game = function (){
       self.snake = new Snake()
       self.food = createFood()
       var interval = function() {
-          drawBorder('orange')
-          updateSnake(self.snake)
+          drawBorder('orange');
+          updateSnake(self.snake);
           drawSnake(self.snake);
-          drawFood(self.food)
+          drawFood(self.food);
+          checkCollision(self.snake, self.food)
           setTimeout(function() {
             requestAnimationFrame(interval);
           }, 120);
@@ -101,4 +102,39 @@ function drawFood(food){
     context.fillRect(food.x * pixelSize, food.y * pixelSize, pixelSize, pixelSize);
     context.strokeStyle = "white";
     context.strokeRect(food.x * pixelSize, food.y * pixelSize, pixelSize, pixelSize);
+}
+
+/// Step 8 Collisions
+
+function checkCollision(snake, food){
+  var canvas = document.getElementById("canvas");
+  var pixelSize = canvas.width / 25
+    /// if we hit our food!
+    if(snake.snakeArray[0].x === food.x && snake.snakeArray[0].y === food.y){
+        game.food = createFood()
+    }
+    /// off the map left
+    if(snake.snakeArray[0].x < 0 ){
+
+    }
+    /// off the map up
+    if(snake.snakeArray[0].y < 0 ){
+
+    }
+    /// off the map down
+    if(snake.snakeArray[0].y > 600/pixelSize ){
+
+    }
+    /// off the map right
+    if(snake.snakeArray[0].x > 600/pixelSize ){
+
+    }
+    /// if we hit our own snake body
+    for(var i = 0; i < snake.snakeArray.length; i++){
+      if(snake.snakeArray[i].x == snake.snakeArray[0].x && snake.snakeArray[i].y == snake.snakeArray[i].y){
+        
+      }
+
+    }
+
 }
