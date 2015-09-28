@@ -21,6 +21,7 @@ var  Game = function (){
       self.snake = new Snake()
       self.food = createFood()
       self.score = 0;
+      self.speed = 220;
 
       var interval = function() {
           drawBorder('orange', self.score);
@@ -30,7 +31,7 @@ var  Game = function (){
           checkCollision(self.snake, self.food)
           setTimeout(function() {
             requestAnimationFrame(interval);
-          }, 120);
+        }, self.speed);
     };
     interval();
 }
@@ -117,6 +118,9 @@ function checkCollision(snake, food){
     if(snake.snakeArray[0].x === food.x && snake.snakeArray[0].y === food.y){
         game.food = createFood()
         game.score++
+        if(game.speed > 30){
+            game.speed = game.speed - 15
+        }
         var tail = {}
         tail.x = game.snake.snakeArray[0].x
         tail.y = game.snake.snakeArray[0].y
