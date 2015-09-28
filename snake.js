@@ -124,23 +124,26 @@ function checkCollision(snake, food){
       }
     /// off the map left
     if(snake.snakeArray[0].x < 0 ){
+      location.reload();
     }
     /// off the map up
     if(snake.snakeArray[0].y < 0 ){
+      location.reload();
 
     }
     /// off the map down
     if(snake.snakeArray[0].y > 600/pixelSize ){
-
+      location.reload();
     }
     /// off the map right
     if(snake.snakeArray[0].x > 600/pixelSize ){
+      location.reload();
 
     }
     /// if we hit our own snake body
-    for(var i = 1; i < snake.snakeArray.length; i++){
+    for(var i = 2; i < snake.snakeArray.length; i++){
       if(snake.snakeArray[i].x == snake.snakeArray[0].x && snake.snakeArray[i].y == snake.snakeArray[0].y){
-
+        location.reload();
       }
 
     }
