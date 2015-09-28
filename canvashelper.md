@@ -98,8 +98,14 @@ width: the rectangles width.
 height: the rectangles height.
 ```
 Example:
+```
+context.fillRect(0, 0, 25, 50);
 
 ```
+- this will fill in a rectangle at those coordinates with a default color of black.
+
+```
+/// How we use it
 context.fillRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
 ```
 - once again, we are using pixelSize on all of the parameters.
