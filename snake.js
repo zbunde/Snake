@@ -21,7 +21,7 @@ var  Game = function (){
       self.snake = new Snake()
       self.food = createFood()
       self.score = 0;
-      self.speed = 220;
+      self.speed = 240;
 
       var interval = function() {
           drawBorder('orange', self.score);
