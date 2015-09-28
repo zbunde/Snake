@@ -132,11 +132,11 @@ function checkCollision(snake, food){
 
     }
     /// off the map down
-    if(snake.snakeArray[0].y > 600/pixelSize ){
+    if(snake.snakeArray[0].y +1 > 600/pixelSize ){
       location.reload();
     }
     /// off the map right
-    if(snake.snakeArray[0].x > 600/pixelSize ){
+    if(snake.snakeArray[0].x + 1 > 600/pixelSize ){
       location.reload();
 
     }
