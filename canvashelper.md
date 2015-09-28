@@ -24,7 +24,6 @@ https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 - requestAnimationFrame is the bread and butter of building games in canvas. Games work off of a interval, each time the interval function fires we update the state of the game, draw the canvas,  and then pass this function to requestAnimationFrame(interval).
 - We can use a setTimeout in conjunction with requestAnimationFrame to control our interval speed.
 
-
 ```
 var interval = function() {
       setTimeout(function() {
@@ -39,7 +38,15 @@ interval();
 - notice how we pass our interval to requestAnimationFrame every 1000 ms.
 - our interval function is recursive, it call's itself indefinitely.
 - we can change how often our interval happens by changing the 2nd argument of our setTimeout.
+- Our interval function will call all of our game related functions. Every interval we must:
 
+ ```
+ 1. Draw Border.
+ 2. Draw the food.
+ 3. Update snakes position.
+ 4. Draw the snake.
+ 5. Check for collisions.
+ ```
 
 #### pixelSize
 - we use pixelSize to act as a constant for drawing pixels on our canvas. It is determined by diving the width or height of our canvas by the amount of pixels we want.
@@ -66,8 +73,9 @@ height: the rectangles height.
 Example:
 
 ```
-context.strokeRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
 
+// The code in our actual 
+context.strokeRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
 ```
 - notice how we are using pixelSize on all 4 parameters. We multiply our x and y by the pixelSize, and for the height and width we use  pixelSize.
 
