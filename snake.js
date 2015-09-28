@@ -23,7 +23,7 @@ var  Game = function (){
           drawSnake(self.snake);
           setTimeout(function() {
             requestAnimationFrame(interval);
-          }, 120);
+        }, 240);
     };
     interval();
 }
