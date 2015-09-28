@@ -18,7 +18,8 @@ function drawBorder(color, score){
 /// Step 3: Intervals
 var  Game = function (){
   var self = this
-      self.snake = new Snake()
+      self.snake = new Snake(0, "red")
+      self.computer = new Snake(10, "blue")
       self.food = createFood()
       self.score = 0;
       self.speed = 240;
@@ -26,9 +27,13 @@ var  Game = function (){
       var interval = function() {
           drawBorder('orange', self.score);
           updateSnake(self.snake);
+          updateSnake(self.computer);
+          updateComputer(self.computer, self.food)
           drawSnake(self.snake);
+          drawSnake(self.computer);
           drawFood(self.food);
-          checkCollision(self.snake, self.food)
+          checkCollision(self.snake, self.computer, self.food)
+
           setTimeout(function() {
             requestAnimationFrame(interval);
         }, self.speed);
@@ -42,7 +47,7 @@ function drawSnake (snake){
   var context = canvas.getContext('2d');
   var pixelSize = canvas.width / 25
       for(var i = 0;  i < snake.snakeArray.length; i++) {
-          context.fillStyle = "orange";
+          context.fillStyle = snake.color;
           context.fillRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
           context.strokeStyle = "white";
           context.strokeRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
@@ -50,13 +55,14 @@ function drawSnake (snake){
 
 }
 /// Step 5: Movement
-var Snake = function(){
+var Snake = function(y, color){
     var self = this
     self.direction = 'right'
     self.snakeArray = []
     self.length = 8
+    self.color = color
       for(var i = self.length; i>=0; i--) {
-        self.snakeArray.push({x: i, y:0});
+        self.snakeArray.push({x: i, y:y});
       }
 
 }
@@ -103,7 +109,7 @@ function drawFood(food){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d')
   var pixelSize = canvas.width / 25
-    context.fillStyle = "blue";
+    context.fillStyle = "green";
     context.fillRect(food.x * pixelSize, food.y * pixelSize, pixelSize, pixelSize);
     context.strokeStyle = "white";
     context.strokeRect(food.x * pixelSize, food.y * pixelSize, pixelSize, pixelSize);
@@ -111,22 +117,46 @@ function drawFood(food){
 
 /// Step 8 Collisions
 
-function checkCollision(snake, food){
+function checkCollision(snake, computer, food){
   var canvas = document.getElementById("canvas");
   var pixelSize = canvas.width / 25
-    /// if we hit our food!
-    if(snake.snakeArray[0].x === food.x && snake.snakeArray[0].y === food.y){
+        /// If we run into the computer.
+        for(i=0; i< computer.snakeArray.length; i++){
+            if(snake.snakeArray[0].x === computer.snakeArray[i].x && snake.snakeArray[0].y === computer.snakeArray[i].y)
+                location.reload()
+            }
+
+            /// If the computer runs into us
+        for(i=0; i< snake.snakeArray.length; i++){
+            if(computer.snakeArray[0].x === snake.snakeArray[i].x && computer.snakeArray[0].y === snake.snakeArray[i].y)
+                    location.reload()
+            }
+
+    ///  If the computer hits the food.
+    if(computer.snakeArray[0].x === food.x && computer.snakeArray[0].y === food.y){
         game.food = createFood()
-        game.score++
+        game.score--
         if(game.speed > 30){
             game.speed = game.speed - 15
         }
         var tail = {}
-        tail.x = game.snake.snakeArray[0].x
-        tail.y = game.snake.snakeArray[0].y
-        snake.snakeArray.unshift(tail);
+        tail.x = computer.snakeArray[0].x
+        tail.y = computer.snakeArray[0].y
+        computer.snakeArray.unshift(tail);
       }
-    /// off the map left
+    /// if we hit our food!
+        if(snake.snakeArray[0].x === food.x && snake.snakeArray[0].y === food.y){
+            game.food = createFood()
+            game.score++
+            if(game.speed > 30){
+                game.speed = game.speed - 15
+            }
+            var tail = {}
+            tail.x = game.snake.snakeArray[0].x
+            tail.y = game.snake.snakeArray[0].y
+            snake.snakeArray.unshift(tail);
+          }
+        /// off the map left
     if(snake.snakeArray[0].x < 0 ){
       location.reload();
     }
@@ -152,4 +182,92 @@ function checkCollision(snake, food){
 
     }
 
+}
+
+/// Step 11 Update Computer position.
+function updateComputer(snake, food){
+    if (food.x === snake.snakeArray[0].x) {
+        if (food.y > snake.snakeArray[0].y) {
+          if (isSafe(snake, 'down')) snake.direction = 'down';
+            } else {
+          if (isSafe(snake, 'up')) snake.direction = 'up';
+        }
+      }
+      if (food.y === snake.snakeArray[0].y) {
+        if (food.x > snake.snakeArray[0].x) {
+          if (isSafe(snake, 'right')) snake.direction = 'right';
+        } else {
+          if (isSafe(snake, 'left')) snake.direction = 'left';
+        }
+      }
+      if (food.y > snake.snakeArray[0].y) {
+        if (isSafe(snake, 'down')) snake.direction = 'down';
+    } else if (food.y < snake.snakeArray[0].y) {
+        if (isSafe(snake, 'up')) snake.direction = 'up';
+      }
+      if (food.x > snake.snakeArray[0].x) {
+        if (isSafe(snake, 'right')) snake.direction = 'right';
+    } else if (food.x < snake.snakeArray[0].x) {
+        if (isSafe(snake, 'left')) snake.direction = 'left';
+      }
+};
+
+function isSafe(snake, dir){
+    var snakeCopy = deepCopy(snake.snakeArray);
+   switch (dir) {
+     case 'left':
+       for (var i = 0; i < snakeCopy.length/4; i++) {
+         snakeCopy[0].x--;
+         if (checkBodyCollision(snakeCopy[0], snakeCopy)) {
+           return false;
+         }
+       }
+       return true;
+     case 'right':
+       for (var i = 0; i < snakeCopy.length/4; i++) {
+         snakeCopy[0].x++;
+         if (checkBodyCollision(snakeCopy[0], snakeCopy)) {
+           return false;
+         }
+       }
+       return true;
+     case 'up':
+       for (var i = 0; i < snakeCopy.length/4; i++) {
+         snakeCopy[0].y--;
+         if (checkBodyCollision(snakeCopy[0], snakeCopy)) {
+           return false;
+         }
+       }
+       return true;
+     case 'down':
+       for (var i = 0; i < snakeCopy.length/4; i++) {
+         snakeCopy[0].y++;
+         if (checkBodyCollision(snakeCopy[0], snakeCopy)) {
+           return false;
+         }
+       }
+       return true;
+   }
+}
+
+function checkBodyCollision(head, array) {
+  for(var i = 1; i < array.length; i++){
+    if(array[i].x == head.x && array[i].y == head.y){
+      return true;
+    }
+  }
+  return false;
+}
+
+function deepCopy (arr) {
+    var out = [];
+    for (var i = 0, len = arr.length; i < len; i++) {
+        var item = arr[i];
+        var obj = {};
+        for (var k in item) {
+            obj[k] = item[k];
+        }
+        out.push(obj);
+    }
+    return out;
 }
