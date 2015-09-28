@@ -51,6 +51,7 @@ interval();
 #### pixelSize
 - we use pixelSize to act as a constant for drawing pixels on our canvas. It is determined by diving the width or height of our canvas by the amount of pixels we want.
 - when we pass X or Y coordinates we must multiply them by our pixelSize so that they move to the correct location on the canvas.
+
 ```
 var pixelSize = canvas.width / 25
 
@@ -71,13 +72,17 @@ height: the rectangles height.
 
 ```
 Example:
+```
+context.strokeRect(0, 0, 25, 50);
 
 ```
+- this will draw the an outline of a rectangle from the top right corner, with a width of 25 and a height of 50.
 
-// The code in our actual 
+```
+/// How we use it
 context.strokeRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
 ```
-- notice how we are using pixelSize on all 4 parameters. We multiply our x and y by the pixelSize, and for the height and width we use  pixelSize.
+- notice how we are using pixelSize on all 4 parameters. We multiply our x and y by the pixelSize, and for the height and width we use pixelSize.
 
 
 
@@ -91,7 +96,6 @@ x: x axis starting point.
 y: y axis starting point.
 width: the rectangles width.
 height: the rectangles height.
-
 ```
 Example:
 
@@ -110,7 +114,6 @@ Example:
 ```
 context.fillStyle = "blue"
 context.fillRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixelSize, pixelSize, pixelSize);
-
 ```
 - this will paint a blue rectangle at the target location.
 
@@ -119,9 +122,8 @@ context.fillRect(snake.snakeArray[i].x * pixelSize, snake.snakeArray[i].y * pixe
   - This property is used to set the color for strokeRect().
 
   Example:
-  ```
+```
   context.strokeStyle = "red"
   context.strokeRect(0,0, canvas.width, canvas.height)
-
-  ```
+```
 - this will draw a red border around our canvas.
