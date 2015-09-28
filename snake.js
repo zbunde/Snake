@@ -30,7 +30,7 @@ var  Game = function (){
           checkCollision(self.snake, self.food)
           setTimeout(function() {
             requestAnimationFrame(interval);
-          }, 120);
+        }, 240);
     };
     interval();
 }
