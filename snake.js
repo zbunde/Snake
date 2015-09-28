@@ -26,7 +26,7 @@ var  Game = function (){
           checkCollision(self.snake, self.food)
           setTimeout(function() {
             requestAnimationFrame(interval);
-          }, 120);
+        }, 240);
     };
     interval();
 }
@@ -115,24 +115,27 @@ function checkCollision(snake, food){
     }
     /// off the map left
     if(snake.snakeArray[0].x < 0 ){
-
+        console.log("dead")
     }
     /// off the map up
     if(snake.snakeArray[0].y < 0 ){
+        console.log("dead")
 
     }
     /// off the map down
     if(snake.snakeArray[0].y > 600/pixelSize ){
+        console.log("dead")
 
     }
     /// off the map right
     if(snake.snakeArray[0].x > 600/pixelSize ){
+        console.log("dead")
 
     }
     /// if we hit our own snake body
     for(var i = 1; i < snake.snakeArray.length; i++){
       if(snake.snakeArray[i].x == snake.snakeArray[0].x && snake.snakeArray[i].y == snake.snakeArray[0].y){
-
+          console.log('dead')
       }
 
     }
