@@ -123,13 +123,13 @@ function checkCollision(snake, computer, food){
         /// If we run into the computer.
         for(i=0; i< computer.snakeArray.length; i++){
             if(snake.snakeArray[0].x === computer.snakeArray[i].x && snake.snakeArray[0].y === computer.snakeArray[i].y)
-                location.reload()
+                drawWinner("COMPUTER");
             }
 
             /// If the computer runs into us
         for(i=0; i< snake.snakeArray.length; i++){
             if(computer.snakeArray[0].x === snake.snakeArray[i].x && computer.snakeArray[0].y === snake.snakeArray[i].y)
-                    location.reload()
+            drawWinner("You win!");
             }
 
     ///  If the computer hits the food.
@@ -270,4 +270,12 @@ function deepCopy (arr) {
         out.push(obj);
     }
     return out;
+}
+
+function drawWinner(text){
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.font = "30px Arial";
+        context.fillText(text, 30, 30)
 }
