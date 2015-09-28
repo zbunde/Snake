@@ -19,7 +19,7 @@ function Game (){
           drawSnake();
           setTimeout(function() {
             requestAnimationFrame(interval);
-          }, 1000);
+        }, 240);
     };
     interval();
 }
