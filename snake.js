@@ -114,7 +114,6 @@ function drawFood(food){
 }
 
 /// Step 8 Collisions
-
 function checkCollision(snake, computer, food){
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext('2d')
