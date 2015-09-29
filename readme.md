@@ -9,5 +9,5 @@
 - The canvashelper.md file has explanations for most of the functions used within the talk.
 
 ### Links
--[Slide Show](https://github.com/username/repo/blob/branch/docs/more_words.md)
--[Repo](https://github.com/zbunde/Snake)
+1. [Slide Show](https://github.com/username/repo/blob/branch/docs/more_words.md)
+2. [Repo](https://github.com/zbunde/Snake)
