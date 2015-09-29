@@ -29,6 +29,7 @@ var  Game = function (){
           updateSnake(self.snake);
           updateSnake(self.computer);
           updateComputer(self.snake, self.food, self.computer)
+          updateComputer(self.computer, self.food, self.snake)
           drawSnake(self.snake);
           drawSnake(self.computer);
           drawFood(self.food);
@@ -120,10 +121,8 @@ function checkCollision(snake, computer, food){
 
   var pixelSize = canvas.width / 25
         /// If we run into the computer.
-
         for(i=0; i< computer.snakeArray.length; i++){
             if(snake.snakeArray[0].x === computer.snakeArray[i].x && snake.snakeArray[0].y === computer.snakeArray[i].y){
-                 alert("You lose!")
                  location.reload()
             }
         }
@@ -132,7 +131,6 @@ function checkCollision(snake, computer, food){
         for(i=0; i< snake.snakeArray.length; i++){
             if(computer.snakeArray[0].x === snake.snakeArray[i].x && computer.snakeArray[0].y === snake.snakeArray[i].y){
                 context.clearRect(0, 0, canvas.width, canvas.height);
-                  alert("You win!");
                   location.reload()
             }
         }
@@ -163,49 +161,40 @@ function checkCollision(snake, computer, food){
           }
         /// off the map left
         if(snake.snakeArray[0].x < 0 ){
-            alert("You lose!");
             location.reload();
         }
         /// Computer off the map left
         if(computer.snakeArray[0].x < 0 ){
-            alert("You win!");
             location.reload();
         }
         /// off the map up
         if(snake.snakeArray[0].y < 0 ){
-            alert("You lose!");
             location.reload();
         }
         /// Computer off the map up
         if(computer.snakeArray[0].y < 0 ){
-            alert("You win!");
             location.reload();
         }
         /// off the map down
         if(snake.snakeArray[0].y + 1 > 600/pixelSize ){
-            alert("Computer wins!");
             location.reload();
         }
         /// Computer off the map down
         if(computer.snakeArray[0].y + 1 > 600/pixelSize ){
-            alert("You win!");
             location.reload();
         }
 
         /// off the map right
         if(snake.snakeArray[0].x + 1 > 600/pixelSize ){
-            alert("You lose!");
             location.reload();
         }
         /// Computer off the map right
         if(computer.snakeArray[0].x + 1 > 600/pixelSize ){
-            alert("You win!");
             location.reload();
         }
         /// if we hit our own snake body
         for(var i = 2; i < snake.snakeArray.length; i++){
           if(snake.snakeArray[i].x == snake.snakeArray[0].x && snake.snakeArray[i].y == snake.snakeArray[0].y){
-              alert("You lose!");
               location.reload();
           }
         }
@@ -219,7 +208,7 @@ function checkCollision(snake, computer, food){
 
 }
 
-/// Step 11 Update Computer position.
+// Step 11 Update Computer position.
 function updateComputer(snake, food, computer){
     if (food.x === computer.snakeArray[0].x) {
         if (food.y > computer.snakeArray[0].y) {
@@ -246,7 +235,7 @@ function updateComputer(snake, food, computer){
         if (isSafe(snake, computer, 'left')) computer.direction = 'left';
       }
 }
-/// Step 11 Helpers
+// Step 11 Helpers
 function isSafe(snake, computer, dir){
   var snakeCopy = deepCopy(snake.snakeArray);
   var compCopy = deepCopy(computer.snakeArray);
@@ -286,7 +275,7 @@ function isSafe(snake, computer, dir){
    }
 }
 
-/// Step 11 Helpers
+// Step 11 Helpers
 function checkBodyCollision(head, array) {
   for(var i = 1; i < array.length; i++){
     if(array[i].x == head.x && array[i].y == head.y){
@@ -296,7 +285,7 @@ function checkBodyCollision(head, array) {
   return false;
 }
 
-/// Step 11 Helpers
+// Step 11 Helpers
 function deepCopy (arr) {
     var out = [];
     for (var i = 0, len = arr.length; i < len; i++) {
