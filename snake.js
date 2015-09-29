@@ -124,8 +124,9 @@ function checkCollision(snake, computer, food){
 
         for(i=0; i< computer.snakeArray.length; i++){
             if(snake.snakeArray[0].x === computer.snakeArray[i].x && snake.snakeArray[0].y === computer.snakeArray[i].y){
-                 alert("You lose!")
-                 location.reload()
+                //  alert("You lose!")
+                //  location.reload()
+                drawWinner();
             }
         }
 
@@ -247,7 +248,7 @@ function updateComputer(snake, food, computer){
         if (isSafe(snake, computer, 'left')) computer.direction = 'left';
       }
 }
-
+/// Step 11 Helpers
 function isSafe(snake, computer, dir){
   var snakeCopy = deepCopy(snake.snakeArray);
   var compCopy = deepCopy(computer.snakeArray);
@@ -287,7 +288,7 @@ function isSafe(snake, computer, dir){
    }
 }
 
-
+/// Step 11 Helpers
 function checkBodyCollision(head, array) {
   for(var i = 1; i < array.length; i++){
     if(array[i].x == head.x && array[i].y == head.y){
@@ -297,6 +298,7 @@ function checkBodyCollision(head, array) {
   return false;
 }
 
+/// Step 11 Helpers
 function deepCopy (arr) {
     var out = [];
     for (var i = 0, len = arr.length; i < len; i++) {

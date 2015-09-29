@@ -36,7 +36,6 @@ interval();
 ```
 - the first call of interval() only starts the loop, and from the on interval is called by requestAnimationFrame.
 - notice how we pass our interval to requestAnimationFrame every 1000 ms.
-- our interval function is recursive, it call's itself indefinitely.
 - we can change how often our interval happens by changing the 2nd argument of our setTimeout.
 - Our interval function will call all of our game related functions. Every interval we must:
 
