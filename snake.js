@@ -127,7 +127,6 @@ function checkCollision(snake, computer, food){
                 //  alert("COMPUTER");
                  alert("You lose!")
                  location.reload()
-                console.log('hi')
             }
         }
 
