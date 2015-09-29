@@ -124,9 +124,8 @@ function checkCollision(snake, computer, food){
 
         for(i=0; i< computer.snakeArray.length; i++){
             if(snake.snakeArray[0].x === computer.snakeArray[i].x && snake.snakeArray[0].y === computer.snakeArray[i].y){
-                //  alert("You lose!")
-                //  location.reload()
-                drawWinner();
+                 alert("You lose!")
+                 location.reload()
             }
         }
 
